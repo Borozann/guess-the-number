@@ -18,7 +18,7 @@ let alreadyWin = false;
 
 const correctNumber = Math.trunc(Math.random() * 20) + 1;
 
-document.querySelector('.check').addEventListener('click', function () {
+const checkNumber = function () {
   const guess = Number(document.querySelector('.guess').value);
 
   //Quebra se guess == undefined
@@ -36,6 +36,8 @@ document.querySelector('.check').addEventListener('click', function () {
     localStorage['highScoreCache'] = highscoreElement.textContent;
   }
 
+  document.querySelector('.guess').value = '';
+
   //Quebra se ganhar
   if (guess === correctNumber && !alreadyWin) {
     alreadyWin = true;
@@ -51,6 +53,13 @@ document.querySelector('.check').addEventListener('click', function () {
       ? 'Guess a lower number...'
       : 'Guess a bigger number...'
   );
+};
+
+document.querySelector('.check').addEventListener('click', checkNumber);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    checkNumber();
+  }
 });
 
 document.querySelector('.again').addEventListener('click', function () {
